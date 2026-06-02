@@ -9,3 +9,5 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 *.log
+willow-rose-prd.docx
+.env.example
