@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-green: #5b8a72;
+  --brand-light: #eaf3ee;
+  --cream: #faf8f5;
+  --dark: #1a1a1a;
+  --gray-mid: #6b7280;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--dark);
+  font-family: var(--font-body), system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: var(--brand-green);
+  color: var(--white);
+}
+
+.focus-ring {
+  @apply outline-none ring-offset-2 ring-offset-cream focus-visible:ring-2 focus-visible:ring-brand-green;
+}
