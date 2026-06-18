@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/shared/Button";
+import { Logomark } from "@/components/shared/Logomark";
 import { clinic, navLinks } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
@@ -12,9 +13,9 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     onScroll();
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -28,35 +29,65 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-40 transition",
-        scrolled || open ? "bg-white/95 shadow-sm backdrop-blur" : "bg-white/10 backdrop-blur-sm"
+        "fixed inset-x-0 top-0 z-40 transition-all duration-300",
+        scrolled || open
+          ? "bg-white/95 shadow-soft backdrop-blur"
+          : "bg-transparent backdrop-blur-[2px]"
       )}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
-        <Link className="focus-ring rounded-base" href="/" onClick={() => setOpen(false)}>
-          <span className={cn("font-display text-2xl", scrolled || open ? "text-dark" : "text-white")}>
+        <Link
+          className="focus-ring group flex items-center gap-2.5 rounded-base"
+          href="/"
+          onClick={() => setOpen(false)}
+        >
+          <Logomark
+            className={cn(
+              "transition-all duration-300",
+              scrolled || open ? "text-brand-green" : "text-white"
+            )}
+            size={28}
+          />
+          <span
+            className={cn(
+              "font-display font-medium transition-all duration-300",
+              scrolled || open ? "text-2xl text-dark" : "text-2xl text-white"
+            )}
+          >
             {clinic.name}
           </span>
         </Link>
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">
+
+        <nav className="hidden items-center gap-9 md:flex" aria-label="Main navigation">
           {navLinks.map((link) => (
             <Link
               className={cn(
-                "focus-ring rounded-base text-sm font-semibold transition hover:text-brand-green",
-                scrolled ? "text-dark" : "text-white"
+                "focus-ring group relative rounded-base py-1 text-sm font-semibold tracking-wide transition hover:text-brand-green",
+                scrolled || open ? "text-dark" : "text-white"
               )}
               href={link.href}
               key={link.href}
             >
               {link.label}
+              <span
+                aria-hidden
+                className="absolute -bottom-0.5 left-1/2 h-1.5 w-1.5 -translate-x-1/2 scale-0 rounded-full bg-gold transition-transform duration-200 group-hover:scale-100"
+              />
             </Link>
           ))}
         </nav>
+
         <div className="hidden md:block">
-          <Button href="/book" variant={scrolled ? "primary" : "secondary"}>
+          <Button
+            href="/book"
+            showArrow
+            size="md"
+            variant={scrolled || open ? "primary" : "secondary"}
+          >
             Book Now
           </Button>
         </div>
+
         <button
           aria-label={open ? "Close menu" : "Open menu"}
           className={cn(
@@ -69,9 +100,10 @@ export function Header() {
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
+
       <div
         className={cn(
-          "fixed inset-x-0 top-20 z-30 h-[calc(100vh-5rem)] bg-white px-5 py-8 transition md:hidden",
+          "fixed inset-x-0 top-20 z-30 h-[calc(100vh-5rem)] bg-white px-5 py-8 transition-transform duration-300 md:hidden",
           open ? "translate-x-0" : "translate-x-full"
         )}
       >
@@ -86,7 +118,7 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <Button className="mt-4 w-full" href="/book">
+          <Button className="mt-4 w-full" href="/book" showArrow>
             Book Now
           </Button>
         </nav>

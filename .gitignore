@@ -12,3 +12,9 @@ pnpm-debug.log*
 willow-rose-prd.docx
 .env.example
 agent_plugin
+.claude
+
+# Local and temporary files
+prd-extracted.txt
+screenshots/
+scripts/
