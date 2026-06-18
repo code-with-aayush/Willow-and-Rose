@@ -4,6 +4,7 @@ import { PageHero } from "@/components/shared/PageHero";
 import { SectionWrapper } from "@/components/shared/SectionWrapper";
 import { Diamond, DiamondRule, Leaf } from "@/components/shared/Ornament";
 import { Reveal } from "@/components/shared/Reveal";
+import { BookingFlow } from "@/components/booking/BookingFlow";
 
 export const metadata: Metadata = {
   title: "Book Now",
@@ -17,10 +18,11 @@ const expectations = [
   "Same-week appointment options when available"
 ];
 
-export default function BookPage() {
-  const calLink = process.env.NEXT_PUBLIC_CAL_LINK ?? "willowandrose/consultation";
-  const calUrl = `https://cal.com/${calLink}?embed=true&theme=light`;
+type BookPageProps = {
+  searchParams?: { [key: string]: string | string[] | undefined };
+};
 
+export default function BookPage({ searchParams }: BookPageProps) {
   return (
     <>
       <PageHero
@@ -31,23 +33,7 @@ export default function BookPage() {
       <SectionWrapper className="bg-cream">
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <Reveal>
-            <div className="overflow-hidden rounded-large bg-white shadow-card">
-              <div className="flex items-center gap-3 border-b border-black/10 px-5 py-4">
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand-light text-brand-green">
-                  <CalendarDays aria-hidden size={18} />
-                </span>
-                <div>
-                  <h2 className="text-base font-semibold text-dark">Free Consultation Calendar</h2>
-                  <p className="text-xs text-gray-mid">Pick a time that works for your week</p>
-                </div>
-                <span className="ml-auto text-eyebrow text-gold">● Live</span>
-              </div>
-              <iframe
-                className="h-[720px] w-full"
-                src={calUrl}
-                title="Book a Willow & Rose consultation"
-              />
-            </div>
+            <BookingFlow searchParams={searchParams} />
           </Reveal>
           <aside className="space-y-5">
             <Reveal delay={0.05}>
@@ -99,3 +85,4 @@ export default function BookPage() {
     </>
   );
 }
+

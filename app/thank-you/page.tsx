@@ -5,6 +5,7 @@ import { SectionWrapper } from "@/components/shared/SectionWrapper";
 import { CheckCircle, Diamond, DiamondRule, Leaf } from "@/components/shared/Ornament";
 import { Reveal } from "@/components/shared/Reveal";
 import { clinic } from "@/lib/data";
+import { ThankYouSummary } from "@/components/booking/ThankYouSummary";
 
 export const metadata: Metadata = {
   title: "You're Booked",
@@ -61,31 +62,8 @@ export default function ThankYouPage() {
             appointment details from Cal.com.
           </p>
 
-          <div className="mt-10 overflow-hidden rounded-large bg-white p-7 text-left text-dark shadow-lift">
-            <p className="text-eyebrow text-brand-green">
-              <span className="text-gold">✦</span> Appointment Summary
-            </p>
-            <dl className="mt-5 grid gap-6 sm:grid-cols-2">
-              <div>
-                <dt className="text-eyebrow text-gray-mid">Service</dt>
-                <dd className="mt-2 text-sm font-semibold text-dark">
-                  Free Medical Aesthetics Consultation
-                </dd>
-              </div>
-              <div>
-                <dt className="text-eyebrow text-gray-mid">Location</dt>
-                <dd className="mt-2 text-sm font-semibold text-dark">{clinic.address}</dd>
-              </div>
-              <div>
-                <dt className="text-eyebrow text-gray-mid">Contact</dt>
-                <dd className="mt-2 text-sm font-semibold text-dark">{clinic.phone}</dd>
-              </div>
-              <div>
-                <dt className="text-eyebrow text-gray-mid">Email</dt>
-                <dd className="mt-2 text-sm font-semibold text-dark">{clinic.email}</dd>
-              </div>
-            </dl>
-          </div>
+          <ThankYouSummary />
+
 
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
             <Button href="/thank-you" showArrow variant="secondary">
